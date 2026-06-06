@@ -1,3 +1,8 @@
+using DemoAsp.Net8_Session01_.Contexts;
+using GymManagment.DAL.Repostories.Classes;
+using GymManagment.DAL.Repostories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
 namespace DemoAsp.Net8_Session01_
 {
     public class Program
@@ -8,6 +13,13 @@ namespace DemoAsp.Net8_Session01_
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            // Regester ==> (DI)=>Dependancy Injection
+            builder.Services.AddScoped<IPlanRepostory, PlanRepostory>();
+            //Ef Core Will Create Object From DbContext Automatica When We Request it From The Container (Depency Injection )
+            builder.Services.AddDbContext<GymDbContext>(option =>
+            {
+                option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             var app = builder.Build();
 

@@ -1,4 +1,6 @@
 ﻿using DemoAsp.Net8_Session01_.Contexts;
+using GymManagment.DAL.Repostories.Classes;
+using GymManagment.DAL.Repostories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,34 +8,37 @@ namespace DemoAsp.Net8_Session01_.Controllers
 {
     public class PlanController : Controller
     {
-        //[1] DataBase Connection
-        private readonly GymDbContext Context;
+        //[1] DataBase Connection => PlanRepository
+        //   private readonly GymDbContext Context;
+        // Dependancy Injection To Killled=>> new
 
-        public PlanController()
+
+        private readonly IPlanRepostory _planRepostory ;
+        public PlanController(IPlanRepostory planRepostory)
         {
-            Context = new GymDbContext();
+            _planRepostory = planRepostory;
         }
         //[2] Get :: URL/Plan/Index
 
 
-        public async Task<IActionResult> Index()
-        {  
+        public async Task<IActionResult> Index(CancellationToken ct)
+        {
             //Async => As Treat With Database 
-            var Plans =await Context.Plans.ToListAsync();
+            var Plans = await _planRepostory.GetAllAsync(ct: ct); //Pass By Name
             return View(Plans);
         }
 
         //[3] Get :: BaseURL/Plan/Detais/{id}
                                       //Detection ==> ([From Route] int id)
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id,CancellationToken ct)
         {
             //FindAsync ==> If Data is  Cashed  Will Return it if not Return From Database
-            var plans = await Context.Plans.FindAsync(id);  
-            if(plans == null)
+            var plan = await _planRepostory.GetByIdAsync(id,ct);  
+            if(plan == null)
             {
                 return RedirectToAction(nameof(Index));
             }
-            return View(plans); 
+            return View(plan); 
            
         }
 

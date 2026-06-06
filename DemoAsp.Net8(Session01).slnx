@@ -1,3 +1,5 @@
 <Solution>
-  <Project Path="DemoAsp.Net8(Session01).csproj" />
+  <Project Path="../GymManagment.BLL/GymManagment.BLL.csproj" Id="96d8cdd6-2f8e-48f0-bee2-509968f1a061" />
+  <Project Path="../GymManagment.DAL/GymManagment.DAL.csproj" Id="b6147cb0-53fb-442f-92aa-d553133ac544" />
+  <Project Path="DemoAsp.Net8(Session01).PL.csproj" />
 </Solution>
