@@ -1,4 +1,5 @@
 ﻿using DemoAsp.Net8_Session01_.Contexts;
+using DemoAsp.Net8_Session01_.Models;
 using GymManagment.DAL.Repostories.Classes;
 using GymManagment.DAL.Repostories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -13,8 +14,8 @@ namespace DemoAsp.Net8_Session01_.Controllers
         // Dependancy Injection To Killled=>> new
 
 
-        private readonly IPlanRepostory _planRepostory ;
-        public PlanController(IPlanRepostory planRepostory)
+        private readonly IGenaricRepository<Plan> _planRepostory ;
+        public PlanController(IGenaricRepository<Plan> planRepostory)
         {
             _planRepostory = planRepostory;
         }
