@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DemoAsp.Net8_Session01_.Controllers
 {
-    public class PlanController : Controller
+    public class PlansController : Controller
     {
         //[1] DataBase Connection => PlanRepository
         //   private readonly GymDbContext Context;
@@ -15,7 +15,7 @@ namespace DemoAsp.Net8_Session01_.Controllers
 
 
         private readonly IGenaricRepository<Plan> _planRepostory ;
-        public PlanController(IGenaricRepository<Plan> planRepostory)
+        public PlansController(IGenaricRepository<Plan> planRepostory)
         {
             _planRepostory = planRepostory;
         }
